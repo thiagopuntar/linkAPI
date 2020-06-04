@@ -1,8 +1,8 @@
 const axios = require("axios");
-const { BLING_API_KEY: apiKey } = process.env;
+const { BLING_API_KEY: apikey } = process.env;
 
 const params = {
-  api_token: apiKey,
+  apikey,
 };
 
 class BlingService {
@@ -11,6 +11,8 @@ class BlingService {
       baseURL: "https://bling.com.br/Api/v2/",
     });
   }
+
+  async insertSalesOrder(order) {}
 }
 
 module.exports = new BlingService();
