@@ -7,7 +7,7 @@ const defaultParams = {
 
 class PipedriveService {
   constructor() {
-    this.request = axios.create({
+    this._request = axios.create({
       baseURL: `https://${PIPEDRIVE_DOMAIN}.pipedrive.com/api/v1/`,
     });
   }
@@ -15,7 +15,7 @@ class PipedriveService {
   async getWonDeals() {
     try {
       const params = { ...defaultParams, status: "won" };
-      const response = await this.request.get("/deals", { params });
+      const response = await this._request.get("/deals", { params });
       const { success, data } = response.data;
 
       if (success) {

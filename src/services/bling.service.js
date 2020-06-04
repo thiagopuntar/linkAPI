@@ -1,7 +1,6 @@
 const axios = require("axios");
 const { BLING_API_KEY: apikey } = process.env;
 const xml2js = require("xml2js");
-const logger = require("../logger");
 
 const defaultParams = {
   apikey,
