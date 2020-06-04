@@ -1,6 +1,7 @@
 const BlingService = require("./bling.service");
 const PipedriveService = require("./pipedrive.service");
 const moment = require("moment");
+const SaleOrders = require("../models/SaleOrders");
 
 class SyncService {
   async syncBlingOrders() {
@@ -25,6 +26,20 @@ class SyncService {
     }
 
     await Promise.all(promises);
+  }
+
+  async updateDatabase() {
+    await SaleOrders.deleteMany({});
+    const orders = await BlingService.getOrders();
+    const formatedOrders = orders.map((order) => {
+      return {
+        blingId: order.pedido.numero,
+        date: order.pedido.data,
+        value: order.pedido.totalvenda,
+      };
+    });
+
+    await SaleOrders.insertMany(formatedOrders);
   }
 }
 
